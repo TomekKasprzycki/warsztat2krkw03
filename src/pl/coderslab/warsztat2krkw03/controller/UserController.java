@@ -20,7 +20,7 @@ public class UserController {
                 addUser();
             } else if (option.equals("2")){
                 editUser();
-            } else if (option.equals("3")1){
+            } else if (option.equals("3")){
                 deleteUser();
             } else if (option.equals("0")){
                 System.out.println("Zakończono działanie programu. Do zobacznia!");
