@@ -1,5 +1,8 @@
 package pl.coderslab.warsztat2krkw03.controller;
 
+import pl.coderslab.warsztat2krkw03.dao.UserDao;
+import pl.coderslab.warsztat2krkw03.model.User;
+
 import java.util.Scanner;
 
 public class UserController {
@@ -17,10 +20,11 @@ public class UserController {
                 addUser();
             } else if (option.equals("2")){
                 editUser();
-            } else if (option.equals("3")){
+            } else if (option.equals("3")1){
                 deleteUser();
             } else if (option.equals("0")){
                 System.out.println("Zakończono działanie programu. Do zobacznia!");
+                break;
             } else {
                 System.out.println();
             }
@@ -37,7 +41,19 @@ public class UserController {
     }
 
     private static void addUser() {
-        System.out.println("add user");
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Add user:");
+        System.out.print("Enter user name: ");
+        final String username = scan.nextLine();
+        System.out.print("Enter user email: ");
+        final String email = scan.nextLine();
+        System.out.print("Enter user password: ");
+        final String password = scan.nextLine();
+
+        User user = new User(username,email,password);
+        UserDao.create(user);
+        System.out.println("User was added, id="+user.getId());
+
     }
 
     private static void displayMenu() {
