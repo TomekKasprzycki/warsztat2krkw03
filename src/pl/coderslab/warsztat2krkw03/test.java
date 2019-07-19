@@ -5,6 +5,8 @@ import pl.coderslab.warsztat2krkw03.dao.UserDAO;
 import pl.coderslab.warsztat2krkw03.model.GroupsTable;
 import pl.coderslab.warsztat2krkw03.model.User;
 
+import java.util.Scanner;
+
 public class test {
 
     public static void main(String[] args) {
@@ -22,6 +24,8 @@ public class test {
 //        System.out.println(gr.getId());
 //        System.out.println(gr.getName());
 
+
+        System.out.println();
 
     }
 

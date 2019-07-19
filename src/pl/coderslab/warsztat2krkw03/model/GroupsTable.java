@@ -5,6 +5,9 @@ public class GroupsTable {
     private int id;
     private String name;
 
+    public GroupsTable() {
+    }
+
     public GroupsTable(String name) { this.name = name; }
 
     public int getId() { return id; }

@@ -47,7 +47,7 @@ public class GroupsController {
 
     private static void deleteGroup() {
         System.out.println();
-        System.out.println("Group delete.");
+        System.out.println("Group delete menu.");
         System.out.println("------------------");
         Scanner scan = new Scanner(System.in);
         System.out.println();
@@ -72,13 +72,27 @@ public class GroupsController {
     }
 
     private static void editGroup() {
+        System.out.println();
+        System.out.println("Group edition menu.");
+        System.out.println("------------------");
+        Scanner scan = new Scanner(System.in);
+        System.out.println();
+        System.out.print("Insert group id which You want to edit: ");
+        String groupIDStr = scan.nextLine();
+        int groupID = Integer.parseInt(groupIDStr);
+        System.out.println();
+        System.out.print("Set new name for this group: ");
+        String newName = scan.nextLine();
 
+        GroupsTableDAO.editGroup(groupID,newName);
+
+        System.out.println("Group name has been changed.");
     }
 
     private static void addGroup() {
 
         System.out.println();
-        System.out.println("New group creator.");
+        System.out.println("New group creator menu.");
         System.out.println("------------------");
         Scanner scan = new Scanner(System.in);
         System.out.println();

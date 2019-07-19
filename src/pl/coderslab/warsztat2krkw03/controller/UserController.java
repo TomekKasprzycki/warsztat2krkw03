@@ -1,8 +1,11 @@
 package pl.coderslab.warsztat2krkw03.controller;
 
+import org.mindrot.jbcrypt.BCrypt;
 import pl.coderslab.warsztat2krkw03.dao.UserDAO;
 import pl.coderslab.warsztat2krkw03.model.User;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class UserController {
@@ -19,7 +22,11 @@ public class UserController {
             if (option.equals("1")){
                 addUser();
             } else if (option.equals("2")){
-                editUser();
+                try {
+                    editUser();
+                } catch (SQLException e){
+                    e.printStackTrace();
+                }
             } else if (option.equals("3")){
                 deleteUser();
             } else if (option.equals("0")){
@@ -36,9 +43,63 @@ public class UserController {
         System.out.println("delete user");
     }
 
-    private static void editUser() {
-        System.out.println("edit user");
+    private static void editUser() throws SQLException {
+        Scanner scan = new Scanner(System.in);
+        ResultSet rs;
+        String userName="";
+        String email="";
+        String password="";
+        int groupID=0;
+
+        System.out.println("User data edition.");
+        System.out.println("------------------");
+        System.out.print("Enter id user You want to edit: ");
+        int id=scan.nextInt();
+
+        rs=UserDAO.selectUser(id);
+        System.out.println(rs.toString());
+
+        System.out.println("Set new data or leave blank if You don't want to change.");
+        System.out.print("Enter new user name: ");
+        userName = scan.nextLine();
+        if (userName.equals("")){
+            userName=rs.getString(2);
+        }
+        System.out.println("Enter new email: ");
+        email=scan.nextLine();
+        if (email.equals("")){
+            email=rs.getString(3);
+        }
+
+        System.out.println("Enter new password: ");
+        String unchangedPassword = scan.nextLine();
+        if (unchangedPassword.equals("")){
+            password=rs.getString(4);
+        } else {
+            password= BCrypt.hashpw(unchangedPassword, BCrypt.gensalt());
+        }
+
+        System.out.println("Enter new group (id): ");
+        String groupIDStr=scan.nextLine();
+        if (groupIDStr.equals("")){
+            groupID = rs.getInt(5);
+        }else{
+            groupID = Integer.parseInt(groupIDStr);
+        }
+
+        if (UserDAO.editUser(id,userName,email,password,groupID)){
+            System.out.println("Data has been changed!");
+        }else {
+            System.out.println("Something went wrong and data are not changed!");
+        }
+
+
+
+
     }
+
+
+
 
     private static void addUser() {
         Scanner scan = new Scanner(System.in);
