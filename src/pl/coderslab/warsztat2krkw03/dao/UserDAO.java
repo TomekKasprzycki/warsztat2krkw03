@@ -5,7 +5,7 @@ import pl.coderslab.warsztat2krkw03.model.User;
 
 import java.sql.*;
 
-public class UserDao {
+public class UserDAO {
 
 
     private static final String CREATE_USER_QUERY = "INSERT INTO users(username, email, password) VALUES (?,?,?)";

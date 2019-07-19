@@ -1,6 +1,6 @@
 package pl.coderslab.warsztat2krkw03.controller;
 
-import pl.coderslab.warsztat2krkw03.dao.UserDao;
+import pl.coderslab.warsztat2krkw03.dao.UserDAO;
 import pl.coderslab.warsztat2krkw03.model.User;
 
 import java.util.Scanner;
@@ -51,7 +51,7 @@ public class UserController {
         final String password = scan.nextLine();
 
         User user = new User(username,email,password);
-        UserDao.create(user);
+        UserDAO.create(user);
         System.out.println("User was added, id="+user.getId());
 
     }
