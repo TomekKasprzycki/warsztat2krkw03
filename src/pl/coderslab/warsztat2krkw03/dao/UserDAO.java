@@ -1,18 +1,16 @@
 package pl.coderslab.warsztat2krkw03.dao;
 
-import org.mindrot.jbcrypt.BCrypt;
 import pl.coderslab.warsztat2krkw03.db.db;
 import pl.coderslab.warsztat2krkw03.model.User;
-
 import java.sql.*;
 
 public class UserDAO {
 
 
-    private static final String CREATE_USER_QUERY = "INSERT INTO users(username, email, password) VALUES (?,?,?)";
+    private static final String qryCreateUser = "INSERT INTO users(username, email, groupID, password) VALUES (?,?,?,?)";
     private static final String qryEditUser = "UPDATE users SET userName=?, email=?, password=?, groupID=? WHERE id=?";
     private static final String qryDeleteUser = "DELETE FROM users WHERE id=?";
-    private static final String qrySelectUser = "SELECT id, username, email, password, groupID FROM users WHERE id=?";
+    private static final String qrySelectUser = "SELECT username, email, groupID, password FROM users WHERE id=?";
 
     public static User create(User user) {
 
@@ -20,11 +18,12 @@ public class UserDAO {
                      DriverManager.getConnection(db.URL, db.USER, db.PASSWORD)
         ) {
 
-            PreparedStatement ps = connection.prepareStatement(CREATE_USER_QUERY, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = connection.prepareStatement(qryCreateUser, Statement.RETURN_GENERATED_KEYS);
 
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getEmail());
-            ps.setString(3, user.getPassword());
+            ps.setInt(3,user.getGroupID());
+            ps.setString(4, user.getPassword());
 
             ps.executeUpdate();
 
@@ -62,21 +61,39 @@ public class UserDAO {
         return result;
     }
 
-    public static ResultSet selectUser(int id) throws SQLException {
+    public static String selectUser(int id) {
         ResultSet rs = null;
+        String userData ="";
 
         try (Connection connection = DriverManager.getConnection(db.URL, db.USER, db.PASSWORD)) {
             PreparedStatement statement = connection.prepareStatement(qrySelectUser);
             statement.setInt(1, id);
 
             rs = statement.executeQuery();
-            while (rs.next()) {
-                System.out.println(rs.getString(2));
-            }
+            rs.next();
+            userData = rs.getString(1) + "," + rs.getString(2) +
+                    "," + rs.getInt(3) + "," + rs.getString(4);
+
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return rs;
+        return userData;
     }
+
+    public static void deleteUser(int id){
+
+        try (Connection connection=DriverManager.getConnection(db.URL,db.USER, db.PASSWORD)){
+
+            PreparedStatement statement = connection.prepareStatement(qryDeleteUser);
+            statement.setInt(1,id);
+
+            statement.executeUpdate();
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+    }
+
 }

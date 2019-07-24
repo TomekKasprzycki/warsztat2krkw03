@@ -3,22 +3,20 @@ package pl.coderslab.warsztat2krkw03.model;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class User {
-//    id int AUTO_INCREMENT,
-//    username VARCHAR(255) UNIQUE NOT NULL,
-//    email VARCHAR(255) UNIQUE NOT NULL,
-//    password VARCHAR (255) NOT NULL,
 
     private int id;
     private String username;
     private String email;
     private String password;
+    private int groupID;
 
     public User() {
     }
 
-    public User(String username, String email, String password) {
+    public User(String username, String email, int groupID, String password) {
         this.username = username;
         this.email = email;
+        this.groupID = groupID;
         setPassword(password);
     }
 
@@ -31,6 +29,8 @@ public class User {
     public String getEmail() {
         return email;
     }
+
+    public int getGroupID() { return groupID; }
 
     public String getPassword() {
         return password;
@@ -51,6 +51,8 @@ public class User {
     public void setPassword(String password) {
         this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
+
+    public void setGroupID() {this.groupID=groupID; }
 
     public boolean isPasswordCorrect(String password){
 
