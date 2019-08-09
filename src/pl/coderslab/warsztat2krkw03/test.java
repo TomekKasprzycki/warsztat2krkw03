@@ -5,6 +5,8 @@ import pl.coderslab.warsztat2krkw03.dao.UserDAO;
 import pl.coderslab.warsztat2krkw03.model.GroupsTable;
 import pl.coderslab.warsztat2krkw03.model.User;
 
+import java.text.Format;
+import java.util.Date;
 import java.util.Scanner;
 
 public class test {
@@ -24,8 +26,9 @@ public class test {
 //        System.out.println(gr.getId());
 //        System.out.println(gr.getName());
 
+        Date date = null;
 
-        System.out.println();
+        System.out.println(date);
 
     }
 
