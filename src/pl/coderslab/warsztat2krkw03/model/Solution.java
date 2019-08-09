@@ -12,7 +12,7 @@ public class Solution {
     private int exercseID;
     private int userID;
 
-    public Solution(int id, Date created, Date updated, String description, int exercseID, int userID) {
+    public Solution(Date created, Date updated, String description, int exercseID, int userID) {
         this.created = created;
         this.updated = updated;
         this.description = description;

@@ -12,7 +12,7 @@ public class SolutionDAO {
     private static String qryEditSolution = "UPDATE solution SET updated=?, description=?, exerciseID=?, userID=? " +
             "WHERE id=?";
     private static String qryDeleteSolution = "DELETE FROM solution WHERE id=?";
-    private static String qrySelectSolutiona = "SELECT id, created, updated, description, exerciseID, userID " +
+    private static String qrySelectSolutiona = "SELECT id, description, exerciseID, userID " +
             "FROM solution WHERE id=?";
 
     public static Solution addSolution(Solution solution){
@@ -78,8 +78,7 @@ public class SolutionDAO {
 
             resultSet.next();
 
-            result = resultSet.getInt(1) + "," + resultSet.getDate(2) +
-                    "," + resultSet.getDate(3) + "," + resultSet.getString(4) + "," +
+            result = resultSet.getInt(1) + "," + resultSet.getString(4) + "," +
                     resultSet.getInt(5) + "," + resultSet.getInt(6);
 
 

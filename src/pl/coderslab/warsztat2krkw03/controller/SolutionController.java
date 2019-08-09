@@ -1,16 +1,10 @@
 package pl.coderslab.warsztat2krkw03.controller;
 
-import org.mindrot.jbcrypt.BCrypt;
 import pl.coderslab.warsztat2krkw03.dao.SolutionDAO;
-import pl.coderslab.warsztat2krkw03.dao.UserDAO;
 import pl.coderslab.warsztat2krkw03.model.Solution;
-
 import java.sql.SQLException;
-import java.sql.Time;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.Scanner;
-
 public class SolutionController {
 
     public static void main(String[] args) {
@@ -72,7 +66,8 @@ public class SolutionController {
         int exerciseID=0;
         int userID=0;
         String description="";
-        Date updated= new Date();
+        Date updated = new Date();
+
 
         System.out.println("Solution data edition.");
         System.out.println("------------------");
@@ -95,20 +90,39 @@ public class SolutionController {
             exerciseID=Integer.parseInt(exerciseIDstr);
         }
 
-//         userID
-// dokończyć
-
+        System.out.print("Enter new userID: ");
+        String userIDstr=scan.nextLine();
+        if (userIDstr.equals("")){
+            userID= Integer.parseInt(solutionData[2]);
+        } else {
+            userID=Integer.parseInt(userIDstr);
+        }
 
         if (SolutionDAO.editSolution(id,updated,description,exerciseID,userID)){
             System.out.println("Data has been changed!");
         }else {
             System.out.println("Something went wrong and data has been not changed!");
         }
-
-
     }
 
+
     private static void addSolution() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println();
+        System.out.println("Adding solution.");
+        System.out.print("Enter description: ");
+        final String description = scan.nextLine();
+        System.out.print("Enter exerciseID: ");
+        String exerciseIDstr = scan.nextLine();
+        int exerciseID = Integer.parseInt(exerciseIDstr);
+        System.out.print("Enter userID: ");
+        String userIDstr = scan.nextLine();
+        int userID = Integer.parseInt(userIDstr);
+        final Date created = new Date();
+
+        Solution solution = new Solution(created,created,description,exerciseID,userID);
+        SolutionDAO.addSolution(solution);
+        System.out.println("Solution was added, id="+solution.getId());
 
     }
 
